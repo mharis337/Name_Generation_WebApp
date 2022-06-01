@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block body_block%}
+
+<div class="p-4 p-md-5 mb-4 text-white rounded container" style="background-color: #3d3c40;">
+<form method="post">
+
+  {% csrf_token %}
+ <div class="dropdown">
+  <select class="selectpicker" multiple title="Cloud" data-style="btn-secondary" data-actions-box="true" data-size="5" data-width="150px" id="cloudList" name="cloudList">
+    <option value="aw">AWS</option>
+    <option value="az">Azure</option>
+  </select>
+  </div>
+
+  <div class="dropdown">
+    <select class="selectpicker form-control" multiple title="Machine" data-style="btn-secondary" data-actions-box="true" data-size="5" data-live-search="true" data-width="150px" id="machineList" name="machineList">
+
+      <option value="NA">No Data To Display</option>
+
+  </select>
+  </div>
+  
+  <div class="dropdown">
+    <select class="selectpicker" multiple title="Environment" data-style="btn-secondary" data-actions-box="true" data-size="5" data-width="150px" id="envList" name="envList" required>
+      <option value="Sandbox">Sandbox</option>
+      <option value="Develop">Develop</option>
+      <option value="Production">Production</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+  
+
+  <div class="dropdown">
+    <select class="selectpicker form-control" multiple title="Abbreviation" data-style="btn-secondary" data-actions-box="true" data-size="5" data-live-search="true" data-width="150px" id="abvList" name="abvList">
+        {% if abv %}
+        {% for values in abv %}
+        <option value={{values.abv}} id="selectedABV" data-subtext={{values.abv}}>{{values.asset_type}}</option>
+        {% endfor %}
+        {%else%}
+        <option value="NA">No Data To Display</option>
+        {% endif %}
+
+    </select>
+      
+  </div>
+  <button type="button" class="btn btn-success" id="submit">Generate</button>
+
+
+  
+</form>
+</div>
+
+<div class="container">
+<div class="invisible jumbotron container" id="mydiv"> 
+</div>
+<button type='button' class='btn btn-success invisible' id='createStrings'>Create Strings</button>
+</div>
+
+
+{% endblock %}
